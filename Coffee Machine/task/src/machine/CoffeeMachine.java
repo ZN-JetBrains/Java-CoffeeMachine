@@ -1,27 +1,36 @@
 package machine;
 
-import java.util.Scanner;
+import machine.utility.Input;
 
 /**
  * The coffee machine class calculates how much of each
- * ingredient necessary to make a coffee cup is required
- * for a specified amount of cups
+ * ingredient is necessary to make a coffee cup that's
+ * required for a specified amount of cups
+ *
  * @author Zaid Neurothrone
  */
-
 public class CoffeeMachine {
     public static void main(String[] args) {
-        final int WATER_PER_CUP = 200;
-        final int MILK_PER_CUP = 50;
-        final int BEANS_PER_CUP = 15;
+        final int minCapacity = 0;
+        final int maxCapacity = 1_000_000;
+        Machine machine = new Machine();
+
+        System.out.println("Write how many ml of water the coffee machine has:");
+        int waterCapacity = Input.getInt(minCapacity, maxCapacity);
+        machine.setWaterCapacity(waterCapacity);
+
+        System.out.println("Write how many ml of milk the coffee machine has:");
+        int milkCapacity = Input.getInt(minCapacity, maxCapacity);
+        machine.setMilkCapacity(milkCapacity);
+
+        System.out.println("Write how many grams of coffee beans the coffee machine has:");
+        int beanCapacity = Input.getInt(minCapacity, maxCapacity);
+        machine.setBeanCapacity(beanCapacity);
 
         System.out.println("Write how many cups of coffee you will need:");
-        Scanner scanner = new Scanner(System.in);
-        int cups = scanner.nextInt();
+        int cupsNeeded = Input.getInt(minCapacity, maxCapacity);
 
-        System.out.println("For " + cups + " cups of coffee you will need:");
-        System.out.println(cups * WATER_PER_CUP + " ml of water");
-        System.out.println(cups * MILK_PER_CUP + " ml of milk");
-        System.out.println(cups * BEANS_PER_CUP + " g of coffee beans");
+        // OUT result
+        machine.hasSuppliesFor(cupsNeeded);
     }
 }

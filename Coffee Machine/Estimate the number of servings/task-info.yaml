@@ -192,6 +192,15 @@ files:
         }
     }
   learner_created: false
+- name: src/machine/Machine.java
+  visible: true
+  learner_created: true
+- name: src/machine/utility/Input.java
+  visible: true
+  learner_created: true
 feedback_link: https://hyperskill.org/projects/33/stages/177/implement#comment
-status: Unchecked
+status: Solved
+feedback:
+  message: Congratulations!
+  time: Tue, 26 Jan 2021 16:21:20 UTC
 record: -1
