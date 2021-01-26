@@ -1,7 +1,5 @@
 package machine;
 
-import machine.utility.Input;
-
 /**
  * The coffee machine class calculates how much of each
  * ingredient is necessary to make a coffee cup that's
@@ -25,12 +23,10 @@ public class CoffeeMachine
                 9,
                 550);
 
-        machine.printInventory();
-        System.out.println();
-
-        machine.getAction();
-
-        System.out.println();
-        machine.printInventory();
+        boolean isRunning = true;
+        while (isRunning)
+        {
+            isRunning = machine.getAction();
+        }
     }
 }

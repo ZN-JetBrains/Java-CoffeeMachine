@@ -10,18 +10,21 @@ import machine.utility.Input;
  */
 public class Machine
 {
-    public class Menu
+    public static class Menu
     {
         static final String BUY = "buy";
         static final String FILL = "fill";
         static final String TAKE = "take";
+        static final String REMAINING = "remaining";
+        static final String EXIT = "exit";
+        static final String BACK = "back";
     }
 
-    public class Beverage
+    public static class Beverage
     {
-        static final int ESPRESSO = 1;
-        static final int LATTE = 2;
-        static final int CAPPUCCINO = 3;
+        static final String ESPRESSO = "1";
+        static final String LATTE = "2";
+        static final String CAPPUCCINO = "3";
     }
 
     // region Fields
@@ -163,13 +166,23 @@ public class Machine
         System.out.println(getMilkCapacity() + " of milk");
         System.out.println(getBeanCapacity() + " of coffee beans");
         System.out.println(getCupCapacity() + " of disposable cups");
-        System.out.println(getMoney() + " of money");
+        if (myMoney == 0)
+        {
+            System.out.println(getMoney() + " of money");
+        }
+        else
+        {
+            System.out.println("$" + getMoney() + " of money");
+        }
     }
 
-    public void getAction()
+    public boolean getAction()
     {
-        System.out.println("Write action (buy, fill, take):");
+        System.out.println("Write action (buy, fill, take, remaining, exit):");
         String userInput = Input.getString();
+
+        // TODO: Remove later: Currently used to fit tests
+        System.out.println();
 
         switch (userInput)
         {
@@ -182,18 +195,30 @@ public class Machine
             case Menu.TAKE:
                 takeMoney();
                 break;
+            case Menu.REMAINING:
+                printInventory();
+                break;
+            case Menu.EXIT:
+                return false;
             default:
                 break;
         }
+
+        // TODO: Remove later: Currently used to fit tests
+        System.out.println();
+
+        return true;
     }
 
     private void buyBeverage()
     {
-        System.out.println("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino:");
-        int userInput = Input.getInt();
+        System.out.println("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino, back - to main menu:");
+        String userInput = Input.getString();
 
         switch (userInput)
         {
+            case Menu.BACK:
+                return;
             case Beverage.ESPRESSO:
                 buyEspresso();
                 break;
@@ -239,10 +264,28 @@ public class Machine
 
     private boolean canPurchase(int aWaterCost, int aMilkCost, int aBeanCost, int aMoneyCost)
     {
-        if (aWaterCost > myWaterCapacity || aMilkCost > myMilkCapacity || aBeanCost > myBeanCapacity || myCupCapacity < 1)
+        if (aWaterCost > myWaterCapacity)
         {
+            System.out.println("Sorry, not enough water!");
             return false;
         }
+        if (aMilkCost > myMilkCapacity)
+        {
+            System.out.println("Sorry, not enough milk!");
+            return false;
+        }
+        if (aBeanCost > myBeanCapacity)
+        {
+            System.out.println("Sorry, not enough beans!");
+            return false;
+        }
+        if (myCupCapacity < 1)
+        {
+            System.out.println("Sorry, not enough cups!");
+            return false;
+        }
+
+        System.out.println("I have enough resources, making you a coffee!");
 
         myMoney += aMoneyCost;
         --myCupCapacity;
