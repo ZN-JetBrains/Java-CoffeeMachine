@@ -371,6 +371,192 @@ files:
         }
     }
   learner_created: false
+- name: src/machine/utility/Input.java
+  visible: true
+  text: |
+    package machine.utility;
+
+    import java.util.Scanner;
+
+    /**
+     * A class with reusable static methods for user input, file input
+     *
+     * @author Zaid Neurothrone
+     */
+    public class Input
+    {
+        static Scanner scanner = new Scanner(System.in);
+
+        /**
+         * Scans for an integer from user input by the user until
+         * a valid one is entered and returns it
+         *
+         * @return the integer entered by the user
+         */
+        public static int getInt()
+        {
+            int userInput = Integer.MIN_VALUE;
+
+            while (true)
+            {
+                if (scanner.hasNextInt())
+                {
+                    userInput = scanner.nextInt();
+                    break;
+                }
+                else
+                {
+                    scanner.nextLine();
+                    System.out.println("[Error]: That is not an integer. Try again.");
+                }
+            }
+            return userInput;
+        }
+
+        /**
+         * Scans for an integer from user input in a range specified
+         * by the user until a valid one is entered and returns it
+         *
+         * @param aMin the minimum allowed int to scan for
+         * @param aMax the maximum allowed int to scan for
+         * @return the integer entered by the user
+         */
+        public static int getInt(int aMin, int aMax)
+        {
+            int userInput = Integer.MIN_VALUE;
+
+            while (userInput < aMin || userInput > aMax)
+            {
+                if (scanner.hasNextInt())
+                {
+                    userInput = scanner.nextInt();
+
+                    if (userInput < aMin || userInput > aMax)
+                    {
+                        System.out.println("[Error]: Enter only an integer in the range " + aMin + " to " + aMax  + ".");
+                    }
+                }
+                else
+                {
+                    scanner.nextLine();
+                    System.out.println("[Error]: That is not an integer. Try again.");
+                }
+            }
+            return userInput;
+        }
+    }
+  learner_created: true
+- name: src/machine/Machine.java
+  visible: true
+  text: |
+    package machine;
+
+    /**
+     * A class that represents a Coffee Machine and
+     * its expected functionalities
+     *
+     * @author Zaid Neurothrone
+     */
+    public class Machine
+    {
+        // Fields
+        final private int WATER_PER_CUP = 200;
+        final private int MILK_PER_CUP = 50;
+        final private int BEANS_PER_CUP = 15;
+
+        private int myWaterCapacity;
+        private int myMilkCapacity;
+        private int myBeanCapacity;
+
+        /**
+         * Default constructor
+         */
+        public Machine()
+        {
+            myWaterCapacity = 0;
+            myMilkCapacity = 0;
+            myBeanCapacity = 0;
+        }
+
+        /**
+         * Parameterized constructor
+         *
+         * @param aWaterCapacity int: the amount of water the machine has (ml)
+         * @param aMilkCapacity int: the amount of milk the machine has (ml)
+         * @param aBeanCapacity int: the amount of beans the machine has (g)
+         */
+        public Machine(int aWaterCapacity, int aMilkCapacity, int aBeanCapacity)
+        {
+            myWaterCapacity = aWaterCapacity;
+            myMilkCapacity = aMilkCapacity;
+            myBeanCapacity = aBeanCapacity;
+        }
+
+        public int getWaterCapacity() { return myWaterCapacity; }
+        public void setWaterCapacity(int aAmount)
+        {
+            if (aAmount >= 0)
+            {
+                myWaterCapacity = aAmount;
+            }
+        }
+
+        public int getMilkCapacity() { return myMilkCapacity; }
+        public void setMilkCapacity(int aAmount)
+        {
+            if (aAmount >= 0)
+            {
+                myMilkCapacity = aAmount;
+            }
+        }
+
+        public int getBeanCapacity() { return myBeanCapacity; }
+        public void setBeanCapacity(int aAmount)
+        {
+            if (aAmount >= 0)
+            {
+                myBeanCapacity = aAmount;
+            }
+        }
+
+        private int cupCapacity()
+        {
+            int cups = 0;
+
+            while (myWaterCapacity >= WATER_PER_CUP && myMilkCapacity >= MILK_PER_CUP && myBeanCapacity >= BEANS_PER_CUP)
+            {
+                ++cups;
+                myWaterCapacity -= WATER_PER_CUP;
+                myMilkCapacity -= MILK_PER_CUP;
+                myBeanCapacity -= BEANS_PER_CUP;
+            }
+
+            return cups;
+        }
+
+        public void hasSuppliesFor(int aCupsToMake)
+        {
+            int maxCups = cupCapacity();
+
+            if (aCupsToMake > maxCups)
+            {
+                System.out.println("No, I can make only " + maxCups + " cup(s) of coffee");
+            }
+            else if (aCupsToMake == maxCups)
+            {
+                System.out.println("Yes, I can make that amount of coffee");
+            }
+            else
+            {
+                final int extraCups = maxCups - aCupsToMake;
+                System.out.println("Yes, I can make that amount of coffee (and even " + extraCups + " more than that)");
+            }
+        }
+    }
+  learner_created: true
 feedback_link: https://hyperskill.org/projects/33/stages/178/implement#comment
-status: Unchecked
+status: Solved
+feedback:
+  message: Congratulations!
+  time: Tue, 26 Jan 2021 21:38:56 UTC
 record: -1

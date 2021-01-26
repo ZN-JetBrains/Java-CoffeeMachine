@@ -11,6 +11,11 @@ public class Input
 {
     static Scanner scanner = new Scanner(System.in);
 
+    public static String getString()
+    {
+        return scanner.nextLine();
+    }
+
     /**
      * Scans for an integer from user input by the user until
      * a valid one is entered and returns it

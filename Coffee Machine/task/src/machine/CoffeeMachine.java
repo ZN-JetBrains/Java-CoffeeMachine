@@ -9,28 +9,28 @@ import machine.utility.Input;
  *
  * @author Zaid Neurothrone
  */
-public class CoffeeMachine {
-    public static void main(String[] args) {
-        final int minCapacity = 0;
-        final int maxCapacity = 1_000_000;
-        Machine machine = new Machine();
+public class CoffeeMachine
+{
+    public static void main(String[] args)
+    {
+        run();
+    }
 
-        System.out.println("Write how many ml of water the coffee machine has:");
-        int waterCapacity = Input.getInt(minCapacity, maxCapacity);
-        machine.setWaterCapacity(waterCapacity);
+    private static void run()
+    {
+        Machine machine = new Machine(
+                400,
+                540,
+                120,
+                9,
+                550);
 
-        System.out.println("Write how many ml of milk the coffee machine has:");
-        int milkCapacity = Input.getInt(minCapacity, maxCapacity);
-        machine.setMilkCapacity(milkCapacity);
+        machine.printInventory();
+        System.out.println();
 
-        System.out.println("Write how many grams of coffee beans the coffee machine has:");
-        int beanCapacity = Input.getInt(minCapacity, maxCapacity);
-        machine.setBeanCapacity(beanCapacity);
+        machine.getAction();
 
-        System.out.println("Write how many cups of coffee you will need:");
-        int cupsNeeded = Input.getInt(minCapacity, maxCapacity);
-
-        // OUT result
-        machine.hasSuppliesFor(cupsNeeded);
+        System.out.println();
+        machine.printInventory();
     }
 }
