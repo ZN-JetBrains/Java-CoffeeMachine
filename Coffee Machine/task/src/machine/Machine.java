@@ -235,46 +235,46 @@ public class Machine
 
     private void buyEspresso()
     {
-        final int waterCost = 250;
-        final int beanCost = 16;
-        final int moneyCost = 4;
+        final int waterPerCup = 250;
+        final int beansPerCup = 16;
+        final int pricePerCup = 4;
 
-        canPurchase(waterCost, 0, beanCost, moneyCost);
+        canPurchase(waterPerCup, 0, beansPerCup, pricePerCup);
     }
 
     private void buyLatte()
     {
-        final int waterCost = 350;
-        final int milkCost = 75;
-        final int beanCost = 20;
-        final int moneyCost = 7;
+        final int waterPerCup = 350;
+        final int milkPerCup = 75;
+        final int beansPerCup = 20;
+        final int pricePerCup = 7;
 
-        canPurchase(waterCost, milkCost, beanCost, moneyCost);
+        canPurchase(waterPerCup, milkPerCup, beansPerCup, pricePerCup);
     }
 
     private void buyCappuccino()
     {
-        final int waterCost = 200;
-        final int milkCost = 100;
-        final int beanCost = 12;
-        final int moneyCost = 6;
+        final int waterPerCup = 200;
+        final int milkPerCup = 100;
+        final int beansPerCup = 12;
+        final int pricePerCup = 6;
 
-        canPurchase(waterCost, milkCost, beanCost, moneyCost);
+        canPurchase(waterPerCup, milkPerCup, beansPerCup, pricePerCup);
     }
 
-    private boolean canPurchase(int aWaterCost, int aMilkCost, int aBeanCost, int aMoneyCost)
+    private boolean canPurchase(int aWaterPerCup, int aMilkPerCup, int aBeansPerCup, int aPricePerCup)
     {
-        if (aWaterCost > myWaterCapacity)
+        if (myWaterCapacity < aWaterPerCup)
         {
             System.out.println("Sorry, not enough water!");
             return false;
         }
-        if (aMilkCost > myMilkCapacity)
+        if (myMilkCapacity < aMilkPerCup)
         {
             System.out.println("Sorry, not enough milk!");
             return false;
         }
-        if (aBeanCost > myBeanCapacity)
+        if (myBeanCapacity < aBeansPerCup)
         {
             System.out.println("Sorry, not enough beans!");
             return false;
@@ -287,11 +287,11 @@ public class Machine
 
         System.out.println("I have enough resources, making you a coffee!");
 
-        myMoney += aMoneyCost;
+        myMoney += aPricePerCup;
         --myCupCapacity;
-        myWaterCapacity -= aWaterCost;
-        myMilkCapacity -= aMilkCost;
-        myBeanCapacity -= aBeanCost;
+        myWaterCapacity -= aWaterPerCup;
+        myMilkCapacity -= aMilkPerCup;
+        myBeanCapacity -= aBeansPerCup;
 
         return true;
     }
