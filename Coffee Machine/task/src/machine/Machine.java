@@ -10,18 +10,19 @@ import machine.utility.Input;
  */
 public class Machine
 {
-    public static class Menu
+    enum Menu
     {
-        static final String BUY = "buy";
-        static final String FILL = "fill";
-        static final String TAKE = "take";
-        static final String REMAINING = "remaining";
-        static final String EXIT = "exit";
-        static final String BACK = "back";
+        BUY,
+        FILL,
+        TAKE,
+        REMAINING,
+        EXIT,
+        NONE
     }
 
     public static class Beverage
     {
+        static final String BACK = "back";
         static final String ESPRESSO = "1";
         static final String LATTE = "2";
         static final String CAPPUCCINO = "3";
@@ -179,26 +180,32 @@ public class Machine
     public boolean getAction()
     {
         System.out.println("Write action (buy, fill, take, remaining, exit):");
-        String userInput = Input.getString();
+        String userInput = Input.getString().toUpperCase();
+        Menu menuInput = Menu.NONE;
+        try
+        {
+            menuInput = Menu.valueOf(userInput);
+        }
+        catch (Exception ignored) {}
 
         // TODO: Remove later: Currently used to fit tests
         System.out.println();
 
-        switch (userInput)
+        switch (menuInput)
         {
-            case Menu.BUY:
+            case BUY:
                 buyBeverage();
                 break;
-            case Menu.FILL:
+            case FILL:
                 fillInventory();
                 break;
-            case Menu.TAKE:
+            case TAKE:
                 takeMoney();
                 break;
-            case Menu.REMAINING:
+            case REMAINING:
                 printInventory();
                 break;
-            case Menu.EXIT:
+            case EXIT:
                 return false;
             default:
                 break;
@@ -217,7 +224,7 @@ public class Machine
 
         switch (userInput)
         {
-            case Menu.BACK:
+            case Beverage.BACK:
                 return;
             case Beverage.ESPRESSO:
                 buyEspresso();

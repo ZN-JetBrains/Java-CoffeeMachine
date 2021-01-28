@@ -35,10 +35,11 @@ public class Input
             }
             else
             {
-                scanner.nextLine();
                 System.out.println("[Error]: That is not an integer. Try again.");
             }
+            scanner.nextLine();
         }
+
         return userInput;
     }
 
@@ -67,10 +68,11 @@ public class Input
             }
             else
             {
-                scanner.nextLine();
                 System.out.println("[Error]: That is not an integer. Try again.");
             }
+            scanner.nextLine();
         }
+
         return userInput;
     }
 }
